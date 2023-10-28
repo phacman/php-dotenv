@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -9,7 +11,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Dotenv\Exception;
+namespace PhacMan\Dotenv\Exception;
+
+use function strlen;
 
 /**
  * @author Fabien Potencier <fabien@symfony.com>
@@ -29,21 +33,21 @@ final class FormatExceptionContext
         $this->cursor = $cursor;
     }
 
-    public function getPath(): string
+    public function getPath() : string
     {
         return $this->path;
     }
 
-    public function getLineno(): int
+    public function getLineno() : int
     {
         return $this->lineno;
     }
 
-    public function getDetails(): string
+    public function getDetails() : string
     {
         $before = str_replace("\n", '\n', substr($this->data, max(0, $this->cursor - 20), min(20, $this->cursor)));
         $after = str_replace("\n", '\n', substr($this->data, $this->cursor, 20));
 
-        return '...'.$before.$after."...\n".str_repeat(' ', \strlen($before) + 2).'^ line '.$this->lineno.' offset '.$this->cursor;
+        return '...' . $before . $after . "...\n" . str_repeat(' ', strlen($before) + 2) . '^ line ' . $this->lineno . ' offset ' . $this->cursor;
     }
 }

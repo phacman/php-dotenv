@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -9,17 +11,19 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Dotenv\Exception;
+namespace PhacMan\Dotenv\Exception;
+
+use RuntimeException;
 
 /**
  * Thrown when a file does not exist or is not readable.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-final class PathException extends \RuntimeException implements ExceptionInterface
+final class PathException extends RuntimeException implements ExceptionInterface
 {
-    public function __construct(string $path, int $code = 0, \Throwable $previous = null)
+    public function __construct(string $path)
     {
-        parent::__construct(sprintf('Unable to read the "%s" environment file.', $path), $code, $previous);
+        parent::__construct(sprintf('Unable to read the "%s" environment file.', $path));
     }
 }

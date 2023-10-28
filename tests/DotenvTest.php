@@ -9,12 +9,13 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Dotenv\Tests;
+namespace PhacMan\Dotenv\Tests;
 
 use PHPUnit\Framework\TestCase;
-use Symfony\Component\Dotenv\Dotenv;
-use Symfony\Component\Dotenv\Exception\FormatException;
-use Symfony\Component\Dotenv\Exception\PathException;
+use PhacMan\Dotenv\Dotenv;
+use PhacMan\Dotenv\Exception\FormatException;
+use PhacMan\Dotenv\Exception\PathException;
+use const DIRECTORY_SEPARATOR;
 
 class DotenvTest extends TestCase
 {
@@ -33,7 +34,7 @@ class DotenvTest extends TestCase
         }
     }
 
-    public static function getEnvDataWithFormatErrors()
+    public static function getEnvDataWithFormatErrors(): array
     {
         $tests = [
             ['FOO=BAR BAZ', "A value containing spaces must be surrounded by quotes in \".env\" at line 1.\n...FOO=BAR BAZ...\n             ^ line 1 offset 11"],
@@ -55,7 +56,7 @@ class DotenvTest extends TestCase
             ["FOO=\nBAR=\${FOO:-a\"a}", "Unclosed braces on variable expansion in \".env\" at line 2.\n...FOO=\\nBAR=\${FOO:-a\"a}...\n                    ^ line 2 offset 17"],
         ];
 
-        if ('\\' !== \DIRECTORY_SEPARATOR) {
+        if ('\\' !== DIRECTORY_SEPARATOR) {
             $tests[] = ['FOO=$((1dd2))', "Issue expanding a command (%s\n) in \".env\" at line 1.\n...FOO=$((1dd2))...\n               ^ line 1 offset 13"];
         }
 
@@ -177,7 +178,7 @@ class DotenvTest extends TestCase
             ["FOO=foo\nFOOBAR=\${FOO}\${BAR}", ['FOO' => 'foo', 'FOOBAR' => 'foo']],
         ];
 
-        if ('\\' !== \DIRECTORY_SEPARATOR) {
+        if ('\\' !== DIRECTORY_SEPARATOR) {
             $tests = array_merge($tests, [
                 // command expansion
                 ['FOO=$(echo foo)', ['FOO' => 'foo']],
@@ -209,7 +210,7 @@ class DotenvTest extends TestCase
         file_put_contents($path1, 'FOO=BAR');
         file_put_contents($path2, 'BAR=BAZ');
 
-        (new Dotenv())->usePutenv()->load($path1, $path2);
+        (new Dotenv())->usePutEnv()->load($path1, $path2);
 
         $foo = getenv('FOO');
         $bar = getenv('BAR');
@@ -227,13 +228,13 @@ class DotenvTest extends TestCase
     public function testLoadEnv()
     {
         $resetContext = static function (): void {
-            unset($_ENV['SYMFONY_DOTENV_VARS']);
+            unset($_ENV[Dotenv::ALL_VARS]);
             unset($_ENV['FOO']);
             unset($_ENV['TEST_APP_ENV']);
-            unset($_SERVER['SYMFONY_DOTENV_VARS']);
+            unset($_SERVER[Dotenv::ALL_VARS]);
             unset($_SERVER['FOO']);
             unset($_SERVER['TEST_APP_ENV']);
-            putenv('SYMFONY_DOTENV_VARS');
+            putenv(Dotenv::ALL_VARS);
             putenv('FOO');
             putenv('TEST_APP_ENV');
 
@@ -249,14 +250,14 @@ class DotenvTest extends TestCase
         file_put_contents($path, "FOO=BAR\nEXISTING_KEY=NEW_VALUE");
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('BAR', getenv('FOO'));
         $this->assertSame('dev', getenv('TEST_APP_ENV'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('BAR', getenv('FOO'));
         $this->assertSame('dev', getenv('TEST_APP_ENV'));
         $this->assertSame('NEW_VALUE', getenv('EXISTING_KEY'));
@@ -267,14 +268,14 @@ class DotenvTest extends TestCase
 
         $resetContext();
         $_SERVER['TEST_APP_ENV'] = 'local';
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('localBAR', getenv('FOO'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
         $_SERVER['TEST_APP_ENV'] = 'local';
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('localBAR', getenv('FOO'));
         $this->assertSame('localNEW_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('localNEW_VALUE', $_ENV['EXISTING_KEY']);
@@ -282,14 +283,14 @@ class DotenvTest extends TestCase
         // special case for test
         $resetContext();
         $_SERVER['TEST_APP_ENV'] = 'test';
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('BAR', getenv('FOO'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
         $_SERVER['TEST_APP_ENV'] = 'test';
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('BAR', getenv('FOO'));
         $this->assertSame('NEW_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('NEW_VALUE', $_ENV['EXISTING_KEY']);
@@ -298,13 +299,13 @@ class DotenvTest extends TestCase
         file_put_contents("$path.dev", "FOO=devBAR\nEXISTING_KEY=devNEW_VALUE");
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('devBAR', getenv('FOO'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('devBAR', getenv('FOO'));
         $this->assertSame('devNEW_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('devNEW_VALUE', $_ENV['EXISTING_KEY']);
@@ -313,13 +314,13 @@ class DotenvTest extends TestCase
         file_put_contents("$path.dev.local", "FOO=devlocalBAR\nEXISTING_KEY=devlocalNEW_VALUE");
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('devlocalBAR', getenv('FOO'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('devlocalBAR', getenv('FOO'));
         $this->assertSame('devlocalNEW_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('devlocalNEW_VALUE', $_ENV['EXISTING_KEY']);
@@ -332,13 +333,13 @@ class DotenvTest extends TestCase
 
         $resetContext();
         unlink($path);
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV');
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV');
         $this->assertSame('distBAR', getenv('FOO'));
         $this->assertSame('EXISTING_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('EXISTING_VALUE', $_ENV['EXISTING_KEY']);
 
         $resetContext();
-        (new Dotenv())->usePutenv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
+        (new Dotenv())->usePutEnv()->loadEnv($path, 'TEST_APP_ENV', 'dev', ['test'], true);
         $this->assertSame('distBAR', getenv('FOO'));
         $this->assertSame('distNEW_VALUE', getenv('EXISTING_KEY'));
         $this->assertSame('distNEW_VALUE', $_ENV['EXISTING_KEY']);
@@ -370,7 +371,7 @@ class DotenvTest extends TestCase
         file_put_contents($path1, 'FOO=BAR');
         file_put_contents($path2, 'BAR=BAZ');
 
-        (new Dotenv())->usePutenv()->overload($path1, $path2);
+        (new Dotenv())->usePutEnv()->overload($path1, $path2);
 
         $foo = getenv('FOO');
         $bar = getenv('BAR');
@@ -407,7 +408,7 @@ class DotenvTest extends TestCase
         putenv('TEST_ENV_VAR=original_value');
         $_SERVER['TEST_ENV_VAR'] = 'original_value';
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['TEST_ENV_VAR' => 'new_value']);
 
         $this->assertSame('original_value', getenv('TEST_ENV_VAR'));
@@ -417,7 +418,7 @@ class DotenvTest extends TestCase
     {
         $_SERVER['HTTP_TEST_ENV_VAR'] = 'http_value';
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['HTTP_TEST_ENV_VAR' => 'env_value']);
 
         $this->assertSame('env_value', getenv('HTTP_TEST_ENV_VAR'));
@@ -429,7 +430,7 @@ class DotenvTest extends TestCase
     {
         putenv('TEST_ENV_VAR_OVERRIDEN=original_value');
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['TEST_ENV_VAR_OVERRIDEN' => 'new_value'], true);
 
         $this->assertSame('new_value', getenv('TEST_ENV_VAR_OVERRIDEN'));
@@ -440,9 +441,9 @@ class DotenvTest extends TestCase
     public function testMemorizingLoadedVarsNamesInSpecialVar()
     {
         // Special variable not exists
-        unset($_ENV['SYMFONY_DOTENV_VARS']);
-        unset($_SERVER['SYMFONY_DOTENV_VARS']);
-        putenv('SYMFONY_DOTENV_VARS');
+        unset($_ENV[Dotenv::ALL_VARS]);
+        unset($_SERVER[Dotenv::ALL_VARS]);
+        putenv(Dotenv::ALL_VARS);
 
         unset($_ENV['APP_DEBUG']);
         unset($_SERVER['APP_DEBUG']);
@@ -451,15 +452,15 @@ class DotenvTest extends TestCase
         unset($_SERVER['DATABASE_URL']);
         putenv('DATABASE_URL');
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['APP_DEBUG' => '1', 'DATABASE_URL' => 'mysql://root@localhost/db']);
 
-        $this->assertSame('APP_DEBUG,DATABASE_URL', getenv('SYMFONY_DOTENV_VARS'));
+        $this->assertSame('APP_DEBUG,DATABASE_URL', getenv(Dotenv::ALL_VARS));
 
         // Special variable has a value
-        $_ENV['SYMFONY_DOTENV_VARS'] = 'APP_ENV';
-        $_SERVER['SYMFONY_DOTENV_VARS'] = 'APP_ENV';
-        putenv('SYMFONY_DOTENV_VARS=APP_ENV');
+        $_ENV[Dotenv::ALL_VARS] = 'APP_ENV';
+        $_SERVER[Dotenv::ALL_VARS] = 'APP_ENV';
+        putenv(Dotenv::ALL_VARS.'=APP_ENV');
 
         $_ENV['APP_DEBUG'] = '1';
         $_SERVER['APP_DEBUG'] = '1';
@@ -468,23 +469,23 @@ class DotenvTest extends TestCase
         unset($_SERVER['DATABASE_URL']);
         putenv('DATABASE_URL');
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['APP_DEBUG' => '0', 'DATABASE_URL' => 'mysql://root@localhost/db']);
         $dotenv->populate(['DATABASE_URL' => 'sqlite:///somedb.sqlite']);
 
-        $this->assertSame('APP_ENV,DATABASE_URL', getenv('SYMFONY_DOTENV_VARS'));
+        $this->assertSame('APP_ENV,DATABASE_URL', getenv(Dotenv::ALL_VARS));
     }
 
     public function testOverridingEnvVarsWithNamesMemorizedInSpecialVar()
     {
-        putenv('SYMFONY_DOTENV_VARS='.$_SERVER['SYMFONY_DOTENV_VARS'] = 'FOO,BAR,BAZ');
+        putenv(Dotenv::ALL_VARS.'='.$_SERVER[Dotenv::ALL_VARS] = 'FOO,BAR,BAZ');
 
         putenv('FOO=foo');
         putenv('BAR=bar');
         putenv('BAZ=baz');
         putenv('DOCUMENT_ROOT=/var/www');
 
-        $dotenv = (new Dotenv())->usePutenv();
+        $dotenv = (new Dotenv())->usePutEnv();
         $dotenv->populate(['FOO' => 'foo1', 'BAR' => 'bar1', 'BAZ' => 'baz1', 'DOCUMENT_ROOT' => '/boot']);
 
         $this->assertSame('foo1', getenv('FOO'));
@@ -502,7 +503,7 @@ class DotenvTest extends TestCase
         $values = $dotenv->parse($test);
         $this->assertSame('foo1_prod', $values['TEST1']);
 
-        if ('\\' !== \DIRECTORY_SEPARATOR) {
+        if ('\\' !== DIRECTORY_SEPARATOR) {
             $test = "APP_ENV=dev\nTEST2=foo2_\$(php -r 'echo \$_SERVER[\"APP_ENV\"];')";
             $values = $dotenv->parse($test);
             $this->assertSame('foo2_prod', $values['TEST2']);
@@ -529,7 +530,7 @@ class DotenvTest extends TestCase
         $this->assertInstanceOf(Dotenv::class, $dotenv);
     }
 
-    public function testDoNotUsePutenv()
+    public function testDoNotUsePutEnv()
     {
         $dotenv = new Dotenv();
         $dotenv->populate(['TEST_USE_PUTENV' => 'no']);
@@ -541,7 +542,7 @@ class DotenvTest extends TestCase
 
     public function testSERVERVarsDuplicationInENV()
     {
-        unset($_ENV['SYMFONY_DOTENV_VARS'], $_SERVER['SYMFONY_DOTENV_VARS'], $_ENV['FOO']);
+        unset($_ENV[Dotenv::ALL_VARS], $_SERVER[Dotenv::ALL_VARS], $_ENV['FOO']);
         $_SERVER['FOO'] = 'CCC';
 
         (new Dotenv())->populate(['FOO' => 'BAR']);
@@ -552,7 +553,7 @@ class DotenvTest extends TestCase
     public function testBootEnv()
     {
         $resetContext = static function (): void {
-            unset($_SERVER['SYMFONY_DOTENV_VARS'], $_ENV['SYMFONY_DOTENV_VARS']);
+            unset($_SERVER[Dotenv::ALL_VARS], $_ENV[Dotenv::ALL_VARS]);
             unset($_SERVER['TEST_APP_ENV'], $_ENV['TEST_APP_ENV']);
             unset($_SERVER['TEST_APP_DEBUG'], $_ENV['TEST_APP_DEBUG']);
             unset($_SERVER['FOO'], $_ENV['FOO']);

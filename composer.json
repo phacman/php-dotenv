@@ -1,36 +1,42 @@
 {
-    "name": "symfony/dotenv",
+    "name": "phacman/php-dotenv",
     "type": "library",
-    "description": "Registers environment variables from a .env file",
-    "keywords": ["environment", "env", "dotenv"],
-    "homepage": "https://symfony.com",
+    "description": "Compact version: Registers environment variables from a .env file",
+    "keywords": ["php", "env", "dotenv", "compact", "version"],
+    "homepage": "https://github.com/symfony/dotenv",
     "license" : "MIT",
     "authors": [
         {
             "name": "Fabien Potencier",
-            "email": "fabien@symfony.com"
+            "email": "fabien@symfony.com",
+            "role": "Author"
         },
         {
-            "name": "Symfony Community",
-            "homepage": "https://symfony.com/contributors"
+            "name": "Pavel Vasin",
+            "email": "phacman@yandex.ru",
+            "role": "Developer"
         }
     ],
+    "scripts": {
+        "test": "phpunit",
+        "format-code": "php-cs-fixer fix --allow-risky=yes"
+    },
     "require": {
-        "php": ">=8.1"
+        "php": ">=8.1",
+        "symfony/process": "^6.0"
     },
     "require-dev": {
-        "symfony/console": "^5.4|^6.0",
-        "symfony/process": "^5.4|^6.0"
-    },
-    "conflict": {
-        "symfony/console": "<5.4",
-        "symfony/process": "<5.4"
+        "phpunit/phpunit": "^9.5",
+        "friendsofphp/php-cs-fixer": "^3"
     },
     "autoload": {
-        "psr-4": { "Symfony\\Component\\Dotenv\\": "" },
-        "exclude-from-classmap": [
-            "/Tests/"
-        ]
+        "psr-4": {
+            "PhacMan\\Dotenv\\": "src/"
+        }
     },
-    "minimum-stability": "dev"
+    "autoload-dev": {
+        "psr-4": {
+            "PhacMan\\Dotenv\\Tests\\": "tests/"
+        }
+    }
 }

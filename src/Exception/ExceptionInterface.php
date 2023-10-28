@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -9,13 +11,15 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Dotenv\Exception;
+namespace PhacMan\Dotenv\Exception;
+
+use Throwable;
 
 /**
  * Interface for exceptions.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-interface ExceptionInterface extends \Throwable
+interface ExceptionInterface extends Throwable
 {
 }

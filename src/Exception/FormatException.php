@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /*
  * This file is part of the Symfony package.
  *
@@ -9,25 +11,28 @@
  * file that was distributed with this source code.
  */
 
-namespace Symfony\Component\Dotenv\Exception;
+namespace PhacMan\Dotenv\Exception;
+
+use LogicException;
+use Throwable;
 
 /**
  * Thrown when a file has a syntax error.
  *
  * @author Fabien Potencier <fabien@symfony.com>
  */
-final class FormatException extends \LogicException implements ExceptionInterface
+final class FormatException extends LogicException implements ExceptionInterface
 {
     private FormatExceptionContext $context;
 
-    public function __construct(string $message, FormatExceptionContext $context, int $code = 0, \Throwable $previous = null)
+    public function __construct(string $message, FormatExceptionContext $context, int $code = 0, Throwable $previous = null)
     {
         $this->context = $context;
 
         parent::__construct(sprintf("%s in \"%s\" at line %d.\n%s", $message, $context->getPath(), $context->getLineno(), $context->getDetails()), $code, $previous);
     }
 
-    public function getContext(): FormatExceptionContext
+    public function getContext() : FormatExceptionContext
     {
         return $this->context;
     }
