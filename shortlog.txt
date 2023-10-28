@@ -1,0 +1,472 @@
+Nicolas Grekas (179):
+      2017-05-18 15:56:38 | 4251d50 | Merge branch '3.4'
+      2017-05-18 10:23:23 | db3fc46 | Tweak travis and appveyor for Symfony 4
+      2017-05-24 12:02:43 | cbcbe32 | [3.4] Allow 4.* deps
+      2017-07-11 10:19:17 | cd9bb7b | Merge branch '3.3' into 3.4
+      2017-07-11 10:22:40 | 4f57d51 | Merge branch '3.4'
+      2017-07-28 16:02:25 | 7513840 | Bump minimal PHP version to ^5.5.9|>=7.0.8
+      2017-08-03 12:34:20 | 3cd33ce | Merge branch '3.3' into 3.4
+      2017-08-22 16:31:38 | 60fcd88 | [Dotenv] Get env using $_SERVER to work with fastcgi_param and workaround thread safety issues (tag: v3.3.8, tag: v3.3.7)
+      2017-08-22 19:06:26 | d1c6642 | Merge branch '3.3' into 3.4
+      2017-08-22 19:07:47 | c998286 | Merge branch '3.4'
+      2017-09-06 22:03:12 | 94d0115 | Merge branch '3.3' into 3.4 (tag: v3.4.0-RC2, tag: v3.4.0-RC1, tag: v3.4.0-BETA4, tag: v3.4.0-BETA3, tag: v3.4.0-BETA2, tag: v3.4.0-BETA1)
+      2017-09-06 22:16:37 | 7072a54 | Merge branch '3.4' (tag: v4.0.0-BETA3, tag: v4.0.0-BETA2, tag: v4.0.0-BETA1)
+      2017-10-28 21:15:32 | a8b75ab | Replace more docblocks by type-hints (tag: v4.0.0-RC2, tag: v4.0.0-RC1, tag: v4.0.0-BETA4)
+      2017-11-30 17:59:23 | b6b1d1a | Merge branch '3.3' into 3.4 (tag: v3.4.1, tag: v3.4.0)
+      2017-11-30 18:11:43 | 60586c5 | Merge branch '3.4' into 4.0 (tag: v4.0.1, tag: v4.0.0)
+      2017-11-30 18:12:01 | 371c5fd | Merge branch '4.0'
+      2017-12-08 18:24:53 | 21a36fc | Merge branch '3.3' into 3.4 (tag: v3.4.2)
+      2017-12-08 18:46:13 | ffcaeab | Merge branch '3.4' into 4.0 (tag: v4.0.2)
+      2017-12-08 18:58:17 | 2ccf9dd | Merge branch '4.0'
+      2018-01-02 18:47:19 | fa05175 | Merge branch '2.8' into 3.3
+      2018-01-02 18:47:31 | d1ac271 | Merge branch '3.3' into 3.4
+      2018-01-02 19:33:53 | bc91524 | Merge branch '3.4' into 4.0
+      2018-01-02 19:34:13 | 7d55523 | Merge branch '4.0'
+      2018-01-03 20:13:53 | 6c9b7dc | Merge branch '2.8' into 3.3 (tag: v3.3.18, tag: v3.3.17, tag: v3.3.16, tag: v3.3.15, origin/3.3)
+      2018-01-03 20:14:07 | 66265f8 | Merge branch '3.3' into 3.4 (tag: v3.4.9, tag: v3.4.8, tag: v3.4.7, tag: v3.4.6, tag: v3.4.5, tag: v3.4.4, tag: v3.4.3, tag: v3.4.13, tag: v3.4.12, tag: v3.4.11, tag: v3.4.10)
+      2018-01-03 20:15:19 | afb6923 | Merge branch '3.4' into 4.0 (tag: v4.0.9, tag: v4.0.8, tag: v4.0.7, tag: v4.0.6, tag: v4.0.5, tag: v4.0.4, tag: v4.0.3, tag: v4.0.13, tag: v4.0.12, tag: v4.0.11, tag: v4.0.10)
+      2018-01-03 20:15:33 | b90f207 | Merge branch '4.0'
+      2018-05-30 10:24:25 | f98b6b6 | Revert "feature #26702 Mark ExceptionInterfaces throwable (ostrolucky)" (tag: v4.1.2, tag: v4.1.1, tag: v4.1.0)
+      2018-05-31 13:18:23 | c77d55a | Merge branch '4.1'
+      2018-07-03 14:59:14 | f679702 | [Process][Console] deprecated defining commands as strings
+      2018-07-26 11:45:46 | a3c41fa | Merge branch '2.8' into 3.4
+      2018-07-26 11:51:09 | a1aeea7 | Merge branch '3.4' into 4.0
+      2018-07-26 11:55:25 | 809a9e1 | Merge branch '4.0' into 4.1
+      2018-07-26 11:59:12 | 7152377 | Merge branch '4.1'
+      2018-07-26 14:19:56 | fcc8c8c | Merge branch '2.8' into 3.4 (tag: v3.4.17, tag: v3.4.16, tag: v3.4.15, tag: v3.4.14)
+      2018-07-26 14:22:46 | 4c53971 | Merge branch '3.4' into 4.0 (tag: v4.0.15, tag: v4.0.14, origin/4.0)
+      2018-07-26 14:24:31 | 22ca63c | Merge branch '4.0' into 4.1 (tag: v4.1.6, tag: v4.1.5, tag: v4.1.4, tag: v4.1.3)
+      2018-07-26 14:25:51 | 165cca6 | Merge branch '4.1'
+      2018-11-07 15:47:18 | e9ff906 | [Dotenv] add loadEnv(), a smoother alternative to loadForEnv()
+      2018-11-08 11:45:28 | 4ab2464 | [Dotenv] dont use getenv() to read SYMFONY_DOTENV_VARS
+      2018-11-09 00:55:44 | ccc1945 | Merge branch '3.4' into 4.1
+      2018-11-09 01:01:02 | ad945bc | Merge branch '4.1'
+      2018-11-09 01:17:11 | f5d13c6 | fix merge
+      2018-11-09 01:17:22 | 4412fc7 | Merge branch '4.1'
+      2018-11-09 11:14:35 | d36470e | bug #29129 [Dotenv] add loadEnv(), a smoother alternative to loadForEnv() (nicolas-grekas)
+      2018-11-11 12:03:32 | bb53ac4 | [Dotenv] load .env.dist when it exists and .env is not found
+      2018-11-11 22:48:54 | b3d30c5 | Merge branch '2.8' into 3.4
+      2018-11-11 22:51:29 | 7e5654f | Merge branch '3.4' into 4.1
+      2018-11-11 22:51:51 | 2b44686 | Merge branch '4.1'
+      2018-11-12 12:14:20 | cbc4409 | bug #29171 [Dotenv] load .env.dist when it exists and .env is not found (nicolas-grekas)
+      2018-11-13 22:25:53 | 64b5cde | [Dotenv] skip loading "local" env twice (tag: v4.2.0-BETA2)
+      2018-11-26 13:26:29 | 963fc7f | Merge branch '3.4' into 4.1 (tag: v4.1.9, tag: v4.1.8)
+      2018-11-26 13:55:26 | 97f135a | Merge branch '4.1' (tag: v4.2.1, tag: v4.2.0-RC1, tag: v4.2.0)
+      2019-01-25 00:39:39 | 67feddc | Merge branch '3.4' into 4.1 (tag: v4.1.12, tag: v4.1.11, origin/4.1)
+      2019-01-25 00:39:51 | 9a3bdfc | Merge branch '4.1' into 4.2 (tag: v4.2.4, tag: v4.2.3)
+      2019-01-25 00:40:22 | 8d3cabb | Merge branch '4.2'
+      2019-04-01 10:32:59 | b541d63 | Merge branch '3.4' into 4.2 (tag: v4.2.9, tag: v4.2.8, tag: v4.2.7, tag: v4.2.6, tag: v4.2.5)
+      2019-04-10 23:28:30 | 84d0962 | [Dotenv] fix typos
+      2019-05-28 18:41:12 | 85bc441 | Allow Symfony 5.0
+      2019-05-28 19:26:29 | 2a7998a | Merge branch '4.4'
+      2019-05-28 16:10:17 | def31d8 | Bump Symfony 5.0 to PHP 7.2
+      2019-05-28 20:17:01 | 1774ab3 | Bump deps to ^4.4|^5.0 for Symfony 5.0
+      2019-06-08 17:53:56 | dc2e0ee | Remove deprecated code paths that trigger a runtime notice
+      2019-06-26 12:30:56 | 3309f27 | Merge branch '4.3' into 4.4
+      2019-06-26 12:36:22 | 04a9bd9 | Merge branch '4.4'
+      2019-07-18 23:51:58 | 0f03c4a | Merge branch '4.4'
+      2019-08-01 12:33:55 | 9e9451a | Merge branch '4.4'
+      2019-08-02 14:51:32 | b885a4f | Merge branch '3.4' into 4.3
+      2019-08-02 15:22:55 | f49589a | Merge branch '4.3' into 4.4
+      2019-08-02 15:41:59 | dd6eedf | Merge branch '4.4'
+      2019-08-04 00:50:52 | 1785b18 | Merge branch '3.4' into 4.3 (tag: v4.3.5, tag: v4.3.4)
+      2019-08-04 00:59:26 | 841d896 | Merge branch '4.3' into 4.4
+      2019-08-04 01:02:11 | cfdb9e0 | Merge branch '4.4'
+      2019-08-06 10:40:16 | a8e6e23 | Merge branch '4.4'
+      2019-09-27 17:25:24 | 224ba37 | Merge branch '4.4'
+      2019-10-09 17:45:46 | 7d1c6db | Merge branch '4.4'
+      2019-10-12 12:11:50 | f8b4f43 | Merge branch '3.4' into 4.3
+      2019-10-18 13:00:34 | c7e8e47 | [Dotenv] allow LF in single-quoted strings (tag: v3.4.36, tag: v3.4.35, tag: v3.4.34, tag: v3.4.33)
+      2019-10-18 14:23:15 | 62d93bf | Merge branch '3.4' into 4.3 (tag: v4.3.9, tag: v4.3.8, tag: v4.3.7, tag: v4.3.6)
+      2019-10-18 14:24:32 | 289e172 | Merge branch '4.3' into 4.4
+      2019-10-18 17:28:29 | e99f5ec | Merge branch '4.4'
+      2019-10-22 20:21:12 | 3076815 | Merge branch '4.4'
+      2019-11-12 17:58:10 | 1ef79fb | Merge branch '4.4' (tag: v5.0.0-RC1, tag: v5.0.0-BETA2, tag: v5.0.0-BETA1)
+      2019-11-18 20:27:11 | f792c08 | Allow PHP ^7.2.5 (tag: v5.0.0)
+      2019-11-21 10:02:52 | 6641064 | Merge branch '5.0'
+      2019-12-07 19:40:37 | 7f27ade | Merge branch '4.4' into 5.0
+      2019-12-07 19:42:39 | 3c98ca3 | Merge branch '5.0'
+      2019-12-19 18:57:24 | 746e751 | Merge branch '3.4' into 4.3
+      2019-12-19 18:57:49 | c387ab3 | Merge branch '4.3' into 4.4 (tag: v4.4.2)
+      2019-12-19 19:01:11 | 7e1bc90 | Merge branch '4.4' into 5.0 (tag: v5.0.2)
+      2019-12-19 19:01:26 | 2971ed1 | Merge branch '5.0'
+      2019-12-28 17:48:01 | 1474314 | Merge branch '3.4' into 4.3
+      2019-12-28 18:00:14 | 86b2858 | Merge branch '4.3' into 4.4
+      2019-12-28 18:09:49 | a9ebb29 | Merge branch '4.4' into 5.0
+      2019-12-28 18:12:20 | c3d0ef6 | Merge branch '5.0'
+      2020-01-04 15:24:57 | 3cb2de8 | Merge branch '3.4' into 4.3
+      2020-01-04 16:00:46 | a60d19a | Merge branch '4.3' into 4.4
+      2020-01-04 17:08:26 | 3183780 | Merge branch '4.4' into 5.0
+      2020-01-04 17:20:45 | 2ecb841 | Merge branch '5.0'
+      2020-01-08 20:18:34 | 3e41dc2 | Merge branch '3.4' into 4.3 (tag: v4.3.11, tag: v4.3.10, origin/4.3)
+      2020-01-08 20:29:02 | b74a163 | Merge branch '4.3' into 4.4 (tag: v4.4.4, tag: v4.4.3)
+      2020-01-08 20:33:29 | 8331da8 | Merge branch '4.4' into 5.0 (tag: v5.0.4, tag: v5.0.3)
+      2020-01-08 20:33:57 | e10ca02 | Merge branch '5.0'
+      2020-01-11 17:48:32 | e1f2713 | [Dotenv] Add Dotenv::bootEnv() to check for .env.local.php before calling Dotenv::loadEnv()
+      2020-02-01 14:00:36 | b4bc4e0 | Leverage trigger_deprecation() from symfony/deprecation-contracts
+      2020-03-30 14:43:41 | 4627980 | Merge branch '5.0'
+      2020-04-24 01:29:13 | 23e62eb | Use is_file() instead of file_exists() where possible (tag: v5.1.0-RC1, tag: v5.1.0-BETA1)
+      2020-05-20 20:38:26 | e37b488 | Merge branch '4.4' into 5.0
+      2020-05-20 20:43:50 | 1f83cd7 | Merge branch '5.0' into 5.1 (tag: v5.1.0-RC2)
+      2020-05-28 11:20:26 | efd887f | Merge branch '4.4' into 5.0 (tag: v5.0.9, tag: v5.0.11, tag: v5.0.10, origin/5.0)
+      2020-05-28 11:20:44 | 42d2a18 | Merge branch '5.0' into 5.1 (tag: v5.1.5, tag: v5.1.4, tag: v5.1.3, tag: v5.1.2, tag: v5.1.1, tag: v5.1.0)
+      2020-09-02 19:08:58 | f176755 | Merge branch '3.4' into 4.4 (tag: v4.4.15, tag: v4.4.14)
+      2020-09-02 19:23:27 | f406eaa | Merge branch '4.4' into 5.1 (tag: v5.1.7, tag: v5.1.6)
+      2020-10-06 14:13:36 | 8d0ccc0 | Remove "branch-alias", populate "version"
+      2020-10-06 14:41:17 | 65b69c9 | Merge branch '3.4' into 4.4
+      2020-10-06 14:49:34 | 235b0e2 | Merge branch '4.4' into 5.1
+      2020-10-06 17:37:11 | 6aa9dc2 | Update versions in composer.json
+      2020-10-06 18:45:41 | 30c697f | Merge branch '3.4' into 4.4
+      2020-10-06 18:48:42 | 97c7808 | Merge branch '4.4' into 5.1
+      2020-10-07 15:58:11 | 504cdd4 | Remove "version" from composer.json files, use "branch-version" instead
+      2020-10-13 15:30:56 | 85d3c72 | Merge branch '3.4' into 4.4
+      2020-10-13 15:35:38 | 5d93bc4 | Merge branch '4.4' into 5.1
+      2020-10-13 16:20:16 | 98b0497 | Fix branch-version
+      2020-10-13 16:20:53 | 6eef9fa | Merge branch '3.4' into 4.4
+      2020-10-13 16:21:37 | b419d2c | Merge branch '4.4' into 5.1
+      2020-10-24 13:23:57 | 1022723 | Remove branch-version (keep them for contracts only) (tag: v3.4.47, tag: v3.4.46, origin/3.4)
+      2020-10-24 14:50:19 | 450e2da | Merge branch '3.4' into 4.4 (tag: v4.4.16)
+      2020-10-24 15:01:57 | 29ac2a3 | Merge branch '4.4' into 5.1 (tag: v5.2.0-RC1, tag: v5.2.0-BETA3, tag: v5.1.8)
+      2020-12-08 19:59:59 | 2befc49 | Apply "visibility_required" CS rule to constants (tag: v4.4.18)
+      2020-12-08 20:02:38 | 204a9dc | Merge branch '4.4' into 5.1 (tag: v5.2.1, tag: v5.1.10)
+      2021-01-27 13:01:46 | 783f120 | Merge branch '4.4' into 5.1 (tag: v5.3.0-RC1, tag: v5.3.0-BETA1, tag: v5.2.4, tag: v5.2.3, tag: v5.2.2, tag: v5.1.11, origin/5.1)
+      2021-05-19 16:18:37 | fc1131e | Bump Symfony 6 to PHP 8
+      2021-05-20 15:59:02 | 37eea39 | Bump symfony/* deps to ^5.4|^6.0
+      2021-05-26 15:52:38 | 1ac423f | Merge branch '4.4' into 5.2 (tag: v5.3.0, tag: v5.2.10)
+      2021-05-26 20:43:50 | 4ababad | Merge branch '5.3' into 5.4
+      2021-05-26 20:44:04 | 2f3047b | Merge branch '5.4' into 6.0
+      2021-06-02 19:09:43 | 5cd7066 | Update phpunit.xml.dist files for phpunit >= 9.3
+      2021-05-27 20:18:44 | 364dea6 | Add union types
+      2021-07-02 16:24:31 | 99a18c2 | Backport type fixes (tag: v5.3.7)
+      2021-07-03 12:16:21 | 38484ce | Merge branch '5.3' into 5.4
+      2021-07-13 14:47:05 | d9ce0a2 | [Contracts] add return types and bump to v3
+      2021-07-21 15:38:00 | f0fcb34 | Merge branch '4.4' into 5.2 (tag: v5.3.4, tag: v5.2.12)
+      2021-07-21 15:43:48 | 8ab88b1 | Merge branch '5.3' into 5.4
+      2021-07-21 15:48:45 | 1a059c2 | Merge branch '5.4' into 6.0
+      2021-07-21 13:04:28 | 65d4a50 | Narrow existing return types on private/internal/final/test methods
+      2021-08-16 19:31:32 | 63983f1 | Run php-cs-fixer
+      2021-08-12 16:32:19 | 7189ac0 | Cleanup more `@return` annotations
+      2021-08-17 18:35:52 | 0168315 | Merge branch '5.4' into 6.0
+      2021-08-24 23:21:00 | 484ac12 | Add back `@return $this` annotations
+      2021-09-07 16:39:06 | 25ff335 | Remove deprecated code paths
+      2021-09-30 12:54:16 | 71aafac | [Dotenv] Decouple DotenvDumpCommand from FrameworkBundle
+      2021-09-30 16:47:35 | b71500f | Merge branch '5.4' into 6.0
+      2021-09-30 17:50:34 | dd68b22 | Use #[AsCommand] to describe commands
+      2021-10-25 16:34:14 | a42878a | Merge branch '4.4' into 5.3
+      2021-10-25 18:04:32 | 87bc683 | Merge branch '5.3' into 5.4
+      2021-10-25 18:10:37 | acaa713 | Merge branch '5.4' into 6.0
+      2021-10-25 19:17:51 | d86eb40 | Merge branch '4.4' into 5.3
+      2021-10-25 19:24:43 | a188c79 | Merge branch '5.3' into 5.4
+      2021-10-26 19:00:27 | bb0e32e | Merge branch '5.3' into 5.4
+      2021-10-26 19:02:09 | a888d4c | Merge branch '5.4' into 6.0
+      2021-12-17 00:17:20 | 15a389d | CS fixes (tag: v4.4.36)
+      2021-12-17 00:37:57 | 6ff81d0 | Merge branch '4.4' into 5.3 (tag: v5.3.13)
+      2021-12-17 00:52:00 | 1f28b9b | Merge branch '5.3' into 5.4 (tag: v5.4.2)
+      2021-12-17 01:05:41 | 5c43c55 | Merge branch '5.4' into 6.0 (tag: v6.0.2)
+      2021-12-17 01:14:15 | f403e4d | Merge branch '6.0' into 6.1
+      2021-12-16 13:11:51 | 0c868a8 | Add more nullsafe operators
+      2022-01-26 20:23:29 | 45c47b6 | Merge branch '5.4' into 6.0 (tag: v6.0.3)
+      2022-01-27 13:12:23 | 3f9aaf7 | Merge branch '6.0' into 6.1
+      2022-02-15 19:59:24 | 83a2310 | [Dotenv] Fix reading config for symfony/runtime when running dump command (tag: v5.4.5)
+      2022-02-21 20:15:17 | 1c2288f | Merge branch '5.4' into 6.0 (tag: v6.0.5)
+      2022-02-21 20:18:05 | 0ca54de | Merge branch '6.0' into 6.1
+      2022-02-09 17:00:38 | 884d79f | Bump minimum version of PHP to 8.1
+      2023-01-13 12:23:11 | 516f447 | minor #48793 Leverage arrow function syntax for closure (tigitz)
+      2023-02-06 13:38:33 | 10202ed | Merge branch '5.4' into 6.2
+      2023-02-07 12:49:56 | 3f7a137 | Merge branch '6.2' into 6.3
+      2023-02-14 11:44:56 | f2b09b7 | Merge branch '5.4' into 6.2 (tag: v6.2.7)
+      2023-02-14 12:04:20 | 589c822 | Merge branch '6.2' into 6.3
+      2023-03-10 13:06:03 | 4481aa4 | Merge branch '5.4' into 6.2 (tag: v6.2.8, origin/6.2)
+      2023-03-10 13:08:00 | 070cdb0 | Merge branch '6.2' into 6.3
+
+Fabien Potencier (64):
+      2017-01-11 03:13:23 | 97e1c1f | [Dotenv] added the component
+      2017-03-21 17:21:25 | df2526a | minor #22086 Release memory for the parsed data after parsing (stof)
+      2017-03-21 17:24:05 | 56422dc | minor #22087 Fix some invalid phpdoc in the Dotenv class (stof)
+      2017-04-12 17:15:58 | 6f05424 | fail when detecting risky tests
+      2017-05-17 19:21:40 | c6eb017 | updated version to 3.4
+      2017-05-17 19:33:00 | 1b672fa | updated version to 4.0
+      2017-05-17 21:41:56 | 7981494 | bumped minimum version to PHP 7.1
+      2017-07-03 09:56:41 | 9bf3304 | bug #23342 [Dotenv] parse escaped quotes in unquoted env var values (xabbuh)
+      2017-07-03 11:12:16 | 5a1f493 | Merge branch '3.3' into 3.4
+      2017-07-03 11:14:23 | 37645a7 | Merge branch '3.4'
+      2017-07-03 16:31:36 | aaf1904 | Merge branch '3.3' into 3.4
+      2017-07-03 16:32:35 | debc9c3 | Merge branch '3.4'
+      2017-11-21 20:31:29 | 34fd101 | updated version to 4.1
+      2018-05-07 17:51:25 | ed7cc4a | updated version to 4.2
+      2018-09-04 19:55:13 | 5791952 | minor #28307 Mark ExceptionInterfaces throwable #2 (ostrolucky)
+      2018-09-05 11:57:29 | 60dd623 | minor #28359 [Dotenv] use array instead of variadic in Dotenv::doLoad() (fmata)
+      2018-10-12 15:56:03 | 9f3074b | Merge branch '3.4' into 4.1 (tag: v4.1.7)
+      2018-10-12 15:56:18 | 8ace583 | Merge branch '4.1'
+      2018-10-12 15:57:08 | bd5c915 | fixed typo in class name
+      2018-11-26 19:19:01 | 17eb3c6 | updated version to 4.3
+      2019-01-16 12:39:14 | fccf422 | switched array() to []
+      2019-01-16 21:21:11 | 6027ad5 | Merge branch '3.4' into 4.1
+      2019-01-16 23:31:39 | 4165a06 | Merge branch '4.1' into 4.2
+      2019-01-16 23:35:37 | e375887 | fixed CS
+      2019-01-17 00:53:39 | 8be647a | Merge branch '4.2' into short-array-master
+      2019-01-17 00:53:45 | 36b57f8 | fixed CS
+      2019-04-06 17:04:46 | 1335add | Merge branch '4.2'
+      2019-05-09 10:23:25 | c53195d | updated version to 4.4
+      2019-05-28 15:18:42 | 76b5fec | updated version to 5.0
+      2019-06-13 13:57:15 | c2f31ab | fixed CS
+      2019-06-13 14:01:17 | 57dc7d5 | Merge branch '4.2' into 4.3
+      2019-06-13 14:05:05 | 7f99ec2 | Merge branch '4.3' into 4.4
+      2019-06-13 14:15:36 | 6e653a6 | Merge branch '4.4'
+      2019-06-26 09:46:55 | 6163f06 | Merge branch '3.4' into 4.2 (tag: v4.2.12, tag: v4.2.11, tag: v4.2.10, origin/4.2)
+      2019-06-26 09:50:02 | c9ea2a1 | Merge branch '4.2' into 4.3 (tag: v4.3.3, tag: v4.3.2)
+      2019-09-16 11:16:50 | d9ec29b | Merge branch '4.4'
+      2019-10-22 18:44:54 | fc63980 | minor #33963 Add .gitignore to .gitattributes (reedy)
+      2019-11-17 21:31:35 | cb81029 | updated version to 5.1
+      2020-02-29 13:07:09 | 48c8fdd | Merge branch '4.4' into 5.0 (tag: v5.0.6, tag: v5.0.5)
+      2020-02-29 13:07:16 | 0628b00 | Merge branch '5.0'
+      2020-03-27 19:56:45 | 28658ee | Merge branch '4.4' into 5.0 (tag: v5.0.8, tag: v5.0.7)
+      2021-01-01 12:24:35 | 8a5306c | Bump license year
+      2021-01-01 12:25:51 | 82ebfbe | Merge branch '4.4' into 5.1
+      2021-01-11 11:47:58 | 55114d8 | Use ::class keyword when possible
+      2021-01-11 13:11:08 | f4f1b78 | Use ::class keyword when possible
+      2021-07-29 09:18:06 | 12888c9 | Merge branch '4.4' into 5.2 (tag: v5.3.8, tag: v5.2.14, origin/5.2)
+      2021-07-29 09:20:01 | b6d4466 | Merge branch '4.4' into 5.3 (tag: v5.3.6)
+      2021-07-29 09:20:44 | c285814 | Merge branch '5.3' into 5.4
+      2021-07-29 09:21:19 | 8ede5d1 | Merge branch '5.4' into 6.0
+      2021-12-07 14:27:08 | b8491dc | Remove FQCN type hints on properties (tag: v6.0.1)
+      2022-01-02 12:41:36 | fcedd6d | Bump license year (tag: v4.4.37, origin/4.4)
+      2022-01-02 12:51:59 | f040844 | Merge branch '4.4' into 5.3 (tag: v5.3.14, origin/5.3)
+      2022-01-02 12:53:40 | 0c5aee5 | Merge branch '5.3' into 5.4
+      2022-01-02 12:55:41 | 5496865 | Merge branch '5.4' into 6.0
+      2022-01-02 12:56:25 | 02edbae | Merge branch '6.0' into 6.1
+      2022-07-20 12:46:20 | a5ba550 | Fix typos
+      2023-01-01 11:32:19 | 38190ba | Bump license year to 2023 (tag: v5.4.19)
+      2023-01-01 11:36:10 | 9cee123 | Merge branch '5.4' into 6.0 (tag: v6.0.19, origin/6.0)
+      2023-01-01 11:36:55 | 943737d | Merge branch '6.0' into 6.1 (tag: v6.1.11, origin/6.1)
+      2023-01-01 11:38:09 | 1a24cb3 | Merge branch '6.1' into 6.2 (tag: v6.2.5)
+      2023-01-24 17:02:24 | e5221d6 | Update license years (last time)
+      2023-02-02 10:44:01 | 58ea5bc | Merge branch '5.4' into 6.2
+      2023-02-02 10:48:03 | ff926d0 | Merge branch '6.2' into 6.3
+      2023-10-26 21:15:14 | 7dfbe29 | Merge branch '5.4' into 6.3 (HEAD -> 6.3, origin/HEAD, origin/6.3)
+
+Christian Flothmann (22):
+      2017-06-24 12:47:31 | cbd0766 | Merge branch '3.3' into 3.4
+      2017-06-24 15:58:08 | 41567d3 | Merge branch '3.4'
+      2017-06-30 21:34:12 | 2d8a8cd | parse escaped quotes in unquoted env var values
+      2017-07-01 12:45:13 | ac7605b | [Dotenv] clean up before running assertions
+      2017-06-30 21:34:12 | f6e82cd | [Dotenv] parse concatenated variable values (tag: v3.3.4, tag: v3.3.3)
+      2018-11-14 17:05:20 | 154e3f7 | properly parse backslashes in unquoted env vars (tag: v3.4.20, tag: v3.4.19)
+      2019-01-01 16:42:07 | 05ec07b | update year in license files (tag: v3.4.21)
+      2019-01-03 12:05:57 | b0872a6 | Merge branch '3.4' into 4.1 (tag: v4.1.10)
+      2019-01-03 12:07:35 | 36e4e47 | Merge branch '4.1' into 4.2 (tag: v4.2.2)
+      2019-01-03 12:16:58 | 4b2d274 | Merge branch '4.2'
+      2019-06-23 11:10:04 | 3f4fdfb | fix typos (tag: v3.4.30, tag: v3.4.29)
+      2019-07-27 21:05:40 | 804e9e1 | add parameter type declarations to private methods
+      2019-08-06 10:27:26 | 9426b9d | feature #31546 [Dotenv] Use default value when referenced variable is not set (j92)
+      2019-08-06 11:48:05 | ea43247 | [Dotenv] support setting default env var values
+      2019-10-14 15:27:06 | f271654 | Merge branch '4.3' into 4.4
+      2019-10-14 15:37:23 | bd67abd | Merge branch '4.4'
+      2019-11-23 17:53:46 | 7abe2c6 | don't fail when referenced env var does not exist (tag: v4.4.1)
+      2019-12-06 16:32:19 | bb9ee27 | Merge branch '4.3' into 4.4
+      2021-10-27 11:01:25 | 043988e | Merge branch '5.4' into 6.0
+      2021-10-29 00:34:29 | 97ffd38 | do not pass a boolean to the constructor of the Dotenv class (tag: v5.3.10)
+      2021-10-29 00:45:30 | 0c5d051 | Merge branch '5.3' into 5.4 (tag: v5.4.0-BETA1)
+      2021-10-29 10:35:21 | 46b61fc | Merge branch '5.4' into 6.0 (tag: v6.0.0-RC1, tag: v6.0.0-BETA1, tag: v6.0.0)
+
+Alexander M. Turek (14):
+      2019-09-25 12:12:01 | 343a4bf | Add types to constructors and private/final/internal methods (Batch I)
+      2020-11-18 12:42:36 | 264ca18 | Merge branch '4.4' into 5.1 (tag: v5.2.0-RC2, tag: v5.2.0, tag: v5.1.9)
+      2020-12-27 02:49:32 | 7f24fd9 | CS: Apply ternary_to_null_coalescing fixer
+      2020-12-27 16:02:18 | d72a588 | Merge branch '4.4' into 5.1
+      2021-05-19 19:46:45 | 355f511 | Allow Symfony 6
+      2021-05-19 20:58:23 | e80bb53 | Merge branch '5.4' into 6.0
+      2021-07-05 00:30:08 | 8712029 | [Dotenv] Add types to private properties
+      2021-06-07 02:15:42 | 51791c2 | Leverage str_contains/str_starts_with (tag: v4.4.27)
+      2021-07-27 19:14:06 | 2b078ef | Remove polyfills from Yaml and Dotenv (tag: v4.4.29)
+      2021-10-19 12:55:41 | 68aefb2 | Merge branch '5.4' into 6.0
+      2021-10-28 22:22:18 | 6633083 | Merge branch '4.4' into 5.3
+      2021-10-28 22:23:26 | 39059de | Merge branch '5.3' into 5.4
+      2021-11-23 01:12:26 | 9bd173f | Allow v3 contracts where possible (tag: v5.4.0-RC1, tag: v5.4.0)
+      2022-02-08 22:33:44 | 497ec9e | Deprecate the $defaultName property
+
+Thomas Calvet (9):
+      2019-11-12 17:50:35 | 1a9cad0 | Allow \Throwable $previous everywhere (tag: v4.4.0-RC1, tag: v4.4.0-BETA2, tag: v4.4.0-BETA1, tag: v4.4.0)
+      2021-10-25 14:20:21 | acaf296 | [Dotenv] Fix testLoadEnv() to start from a fresh context
+      2021-10-25 18:43:34 | 87c8fd1 | [Dotenv] Fix testLoadEnv() .env.dist isolation
+      2021-10-26 18:34:45 | 46a528c | [Dotenv] Fix testBootEnv() to start from a fresh context
+      2021-10-25 14:12:58 | 6fcefaa | [Dotenv][Runtime] Add $overrideExistingVars to bootEnv() and loadEnv() and dotenv_overload to SymfonyRuntime
+      2021-10-28 13:54:11 | de87d7b | [Dotenv] Duplicate $_SERVER values in $_ENV if they don't exist (tag: v4.4.33)
+      2021-12-08 16:13:04 | 2d9cbe4 | Leverage str_starts_with(), str_ends_with() and str_contains()
+      2022-01-26 19:19:10 | 84d1af2 | [Dotenv] Fix bootEnv() override with .env.local.php when the env key already exists (tag: v5.4.3)
+      2022-03-31 19:23:12 | 568c11b | Leverage non-capturing catches (tag: v6.1.0-RC1, tag: v6.1.0-BETA1, tag: v6.1.0)
+
+Robin Chalas (5):
+      2017-06-21 10:43:17 | b9022ff | [Dotenv] Test load() with multiple paths
+      2017-06-20 23:35:44 | c78b99e | [Dotenv] Make load() variadic
+      2017-08-05 17:43:05 | a4e485b | Add scalar typehints/return types on final/internal/private code
+      2019-11-27 02:25:11 | 55a0afb | Merge branch '4.4' into 5.0 (tag: v5.0.1)
+      2019-11-27 03:54:57 | 665dadf | Merge branch '5.0'
+
+Christophe Coevoet (3):
+      2017-03-21 12:26:02 | 7bf2c91 | Release memory for the parsed data after parsing
+      2017-03-21 12:34:30 | 94a232a | Fix some invalid phpdoc in the Dotenv class
+      2017-03-21 12:50:23 | 3702b9f | Remove unused private method in Dotenv
+
+Kévin Dunglas (3):
+      2017-05-18 09:33:50 | 80f0687 | Allow individual bridges, bundles and components to be used with 4.0
+      2018-09-21 09:27:43 | 81efba5 | [DotEnv] Add a new loadForEnv() method mimicking Ruby's dotenv behavior
+      2018-10-29 10:11:34 | b9bfcb9 | [DotEnv] Fix loadForEnv PHPDoc (tag: v4.2.0-BETA1)
+
+Oskar Stark (3):
+      2021-01-22 15:09:22 | 4952e5c | Use createMock() and use import instead of FQCN (tag: v4.4.20, tag: v4.4.19)
+      2021-05-26 14:20:16 | 744c099 | Fix markdown (tag: v4.4.25)
+      2022-12-14 17:42:16 | c45210b | Migrate to `static` data providers using `rector/rector` (tag: v5.4.21)
+
+Alex Rock Ancelet (2):
+      2017-04-21 20:58:37 | 4a9a44c | [DotEnv] Don't override existing $_SERVER vars
+      2017-04-24 13:32:00 | 45891d7 | Update a test value for consistency
+
+Antoine Lamirault (2):
+      2023-02-05 20:27:03 | 4340667 | [Dotenv] Fix phpdoc Dotenv
+      2023-03-09 23:36:58 | 77b7660 | [Dotenv] Improve Dotenv::usePutenv phpdoc (tag: v5.4.22)
+
+Florent Mata (2):
+      2018-09-02 12:15:13 | 9587bdf | [Dotenv] add Dotenv::overload() to allow env vars override
+      2018-09-04 18:52:49 | bbd48ae | [Dotenv] use array instead of variadic in Dotenv::doLoad()
+
+Gabriel Ostrolucký (2):
+      2018-03-29 00:15:25 | 87350c5 | Mark ExceptionInterfaces throwable (tag: v4.1.0-BETA3, tag: v4.1.0-BETA2, tag: v4.1.0-BETA1)
+      2018-03-29 00:15:25 | 4e7fac1 | Mark ExceptionInterfaces throwable
+
+Jérémy Derussé (2):
+      2019-08-02 01:48:42 | 41767f5 | Fix deprecated phpunit annotation
+      2019-08-02 20:02:27 | 126eaac | Remove use of ForwardCompatTrait
+
+Oleg Voronkovich (2):
+      2017-08-06 03:05:34 | a7a1e54 | [Dotenv][WebServerBundle] Override previously loaded variables
+      2017-09-03 20:54:53 | ac86b6e | [Dotenv] Add a BC break note (tag: v3.3.9, tag: v3.3.13, tag: v3.3.12, tag: v3.3.11, tag: v3.3.10)
+
+Quynh Xuan Nguyen (2):
+      2019-04-11 04:29:28 | fad49a7 | Improve Dotenv messages
+      2019-05-07 12:02:05 | efd677a | Test do not use putenv (tag: v4.3.1, tag: v4.3.0-RC1, tag: v4.3.0-BETA2, tag: v4.3.0-BETA1, tag: v4.3.0)
+
+Rokas Mikalkėnas (2):
+      2022-05-30 14:20:08 | d8721e1 | [Dotenv] Variable filter added to debug command
+      2022-07-21 15:38:49 | 8292bb9 | [Dotenv] Run test in a separate process to have clean global state
+
+Sanpi (2):
+      2017-04-07 19:56:33 | 8de7f36 | Throwing an exception when loading a directory
+      2017-04-10 20:27:37 | cc1cdd0 | [Dotenv] Throwing an error when loading nothing
+
+Tobias Schultze (2):
+      2019-06-24 01:15:46 | c7fe6c4 | feature #31996 [5.0] Add return types in final classes (dFayet)
+      2020-03-26 00:25:16 | a78e698 | add missing gitattributes for phpunit-bridge (tag: v4.4.8, tag: v4.4.7)
+
+Wouter de Jong (2):
+      2020-05-25 18:24:52 | 24d734a | [DotEnv][WebLink][Templating][ErrorHandler] Updated README with minimal example (tag: v4.4.9, tag: v4.4.10)
+      2023-02-13 01:57:18 | 94a91d5 | Add void return types
+
+Abdiel Carrazana (1):
+      2021-08-18 01:20:25 | dc1b877 | [Dotenv] Reimplementing symfony/flex' dump-env as a Symfony command
+
+Alex Pott (1):
+      2020-07-05 04:19:18 | a9eb95c | Use ">=" for the "php" requirement (tag: v4.4.13, tag: v4.4.12, tag: v4.4.11)
+
+Alexander McCullagh (1):
+      2019-12-18 17:26:27 | 39c36d1 | [Dotenv] FIX missing getenv
+
+Alexandre Daubois (1):
+      2023-10-25 10:59:51 | ceed2cd | [Dotent] Add PHPDoc for `$overrideExistingVars` (origin/5.4)
+
+Artyum Petrov (1):
+      2023-04-20 18:24:19 | ceadb43 | Add "composer require..." in all exception messages when needed (tag: v6.3.0-RC1, tag: v6.3.0-BETA1, tag: v6.3.0)
+
+Benjamin Schultz (1):
+      2022-09-30 16:41:10 | bdc3766 | Remove code for legacy Process component versions (tag: v6.2.0-RC1, tag: v6.2.0-BETA1, tag: v6.2.0)
+
+Brieuc Thomas (1):
+      2017-07-06 15:23:24 | 0bbd618 | [DotEnv] Fix variable substitution (tag: v3.3.6, tag: v3.3.5)
+
+Chi-teck (1):
+      2020-11-14 20:10:20 | 6dd958a | Check if method inheritEnvironmentVariables exists (tag: v4.4.17)
+
+Christopher Hertel (1):
+      2021-08-15 14:58:58 | 7c90f48 | Add DotenvDebugCommand
+
+Derek Bonner (1):
+      2017-11-30 07:11:54 | e2ecf49 | [Dotenv] Changed preg_match flags from null to 0 (tag: v3.3.14)
+
+François-Xavier de Guillebon (1):
+      2022-08-26 17:01:55 | 7b89fb1 | Replace FILTER_VALIDATE_BOOLEAN by FILTER_VALIDATE_BOOL
+
+Graham Campbell (1):
+      2019-12-19 21:52:42 | e22ca48 | Fixed test added in #35022
+
+Grégoire Pineau (1):
+      2022-08-25 17:59:21 | a0c2ce3 | [CS] Remove @inheritdoc PHPDoc
+
+Jan Rosier (1):
+      2020-01-01 14:03:25 | 4595330 | Update year in license files
+
+Javier Eguiluz (1):
+      2017-04-24 13:00:12 | e2387bf | Minor changes to make tests more readable
+
+Joost van Driel (1):
+      2019-05-19 19:34:03 | 4406aae | [Dotenv] Use default value when referenced variable is not set
+
+Lesnykh Ilia (1):
+      2017-04-27 10:47:28 | 0f9d2e0 | Fix misprint. (tag: v3.3.2, tag: v3.3.1, tag: v3.3.0-RC1, tag: v3.3.0-BETA1, tag: v3.3.0)
+
+Malte Schlüter (1):
+      2021-05-21 12:42:36 | 2cfeca2 | [Dotenv] Remove deprecated code
+
+Matt Fields (1):
+      2017-03-16 18:46:40 | 5f11dda | Fix dotenv documentation link
+
+Maxime Steinhausser (1):
+      2019-07-10 10:40:26 | 351d273 | [Process] Deprecate Process::inheritEnvironmentVariables()
+
+Michael Käfer (1):
+      2019-01-13 15:05:14 | 47c2020 | Grammar fix in exception message (tag: v3.4.23, tag: v3.4.22)
+
+Nguyen Xuan Quynh (1):
+      2018-10-12 07:34:11 | 6e949fc | Class should be case sensitive (tag: v3.4.18)
+
+Nyholm (1):
+      2019-09-05 18:26:55 | f7ff943 | Adding .gitattributes to remove Tests directory from "dist"
+
+Peter Rehm (1):
+      2017-02-20 16:56:45 | 7a7c8d4 | Updated to PHPUnit namespaces
+
+Philippe Segatori (1):
+      2019-08-13 23:27:05 | a61b9b4 | Remove superfluous phpdoc tags (tag: v3.4.32, tag: v3.4.31)
+
+Reedy (1):
+      2019-10-12 03:27:05 | 0a94d8d | Add .gitignore to .gitattributes
+
+Stas Soroka (1):
+      2019-01-06 04:17:55 | 995c797 | [Dotenv] improved code coverage and removed unreachable code
+
+Titouan Galopin (1):
+      2017-12-08 16:17:14 | 16505b4 | Remove some unused variables and properties
+
+Tobias Nyholm (1):
+      2019-04-10 17:52:01 | d2fa94d | [Dotenv] Deprecate useage of \"putenv\"
+
+Tugdual Saunier (1):
+      2019-12-06 13:59:41 | 0a012e0 | [DotEnv] Remove `usePutEnv` property default value
+
+Vladimir Reznichenko (1):
+      2019-03-22 12:27:33 | 7b33c7b | SCA: minor code tweaks (tag: v3.4.28, tag: v3.4.27, tag: v3.4.26, tag: v3.4.25, tag: v3.4.24)
+
+dFayet (1):
+      2019-06-11 13:13:09 | 2fd4c3c | Replace @return annotation by return type in final classes
+
+jonmldr (1):
+      2020-02-27 17:24:32 | 9bba981 | [Dotenv] Documentation improvement (tag: v4.4.6, tag: v4.4.5)
+
+naitsirch (1):
+      2020-01-07 23:29:45 | 22577db | [Dotenv] Fixed infinite loop with missing quote followed by quoted value (tag: v3.4.45, tag: v3.4.44, tag: v3.4.43, tag: v3.4.42, tag: v3.4.41, tag: v3.4.40, tag: v3.4.39, tag: v3.4.38, tag: v3.4.37)
+
+soufianZantar (1):
+      2019-08-05 11:42:16 | d678630 | [Dotenv] search variable values in ENV first then env file
+
+tigitz (1):
+      2023-01-01 21:45:34 | 1f51a30 | Leverage arrow function syntax for closure
+
